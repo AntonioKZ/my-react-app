@@ -1,8 +1,6 @@
 {
-  "name": "bandi-radar-mi",
-  "private": true,
-  "version": "3.0.1",
-  "scripts": {
-    "build": "rm -rf dist && mkdir -p dist && cp bandi-radar-mvp/index.html bandi-radar-mvp/styles.css bandi-radar-mvp/app.js bandi-radar-mvp/data.js dist/"
-  }
+  "name":"bandi-radar-mi",
+  "private":true,
+  "version":"4.0.0",
+  "scripts":{"build":"mkdir -p dist && cp index.html dist/index.html"}
 }
