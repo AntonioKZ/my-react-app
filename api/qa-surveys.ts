@@ -1,8 +1,8 @@
 import { neon } from '@neondatabase/serverless'
-import surveyLink from './survey-link'
-import surveySubmit from './survey-submit'
-import surveyResponses from './survey-responses'
-import surveyImport from './survey-import'
+import surveyLink from './survey-link.js'
+import surveySubmit from './survey-submit.js'
+import surveyResponses from './survey-responses.js'
+import surveyImport from './survey-import.js'
 
 type Out={status:number;body:any}
 const call=async(fn:any,method:string,body?:any):Promise<Out>=>{let code=200,data:any=null;const req:any={method,body};const res:any={status(n:number){code=n;return this},json(x:any){data=x;return this}};await fn(req,res);return {status:code,body:data}}
