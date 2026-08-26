@@ -11,6 +11,7 @@ import DataVault from './DataVault.tsx'
 import ExecutiveStatus from './ExecutiveStatus.tsx'
 import PublicSurvey from './PublicSurvey.tsx'
 import OpportunityEngine from './OpportunityEngine.tsx'
+import BusinessCaseLab from './BusinessCaseLab.tsx'
 
 const path=window.location.pathname
 const content=path.startsWith('/survey/')
@@ -29,7 +30,9 @@ const content=path.startsWith('/survey/')
               ? <ExecutiveStatus/>
               : path.startsWith('/opportunity-engine')
                 ? <OpportunityEngine/>
-                : <><App/><a className="vault-fab" href="/data-vault">Data Vault</a><a className="survey-fab" href="/surveys">Questionari & Assessment</a><a className="docs-fab" href="/documents">Documenti & Knowledge</a><a className="status-fab" href="/executive-status">Executive Status</a></>
+                : path.startsWith('/business-case')
+                  ? <BusinessCaseLab/>
+                  : <><App/><a className="vault-fab" href="/data-vault">Data Vault</a><a className="survey-fab" href="/surveys">Questionari & Assessment</a><a className="docs-fab" href="/documents">Documenti & Knowledge</a><a className="status-fab" href="/executive-status">Executive Status</a></>
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>{content}</StrictMode>,
