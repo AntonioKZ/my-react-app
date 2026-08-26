@@ -1,0 +1,46 @@
+{
+  "scanned_at": "2026-08-26T08:08:55+02:00",
+  "sources": [
+    "MIMIT Incentivi",
+    "Invitalia Incentivi e strumenti",
+    "Regione Lombardia Bandi e Servizi",
+    "Open Innovation Lombardia",
+    "EuroInfoSicilia / PR FESR Sicilia",
+    "EU Funding & Tenders Portal",
+    "CINEA LIFE",
+    "European Innovation Council"
+  ],
+  "changes": [
+    {
+      "id": "chips-ju-2026",
+      "kind": "new_to_radar",
+      "title": "Sostegno all'elettronica innovativa (Chips JU) – Bandi 2026",
+      "role": "PARTNER",
+      "priority": "A",
+      "deadline": "2026-09-16",
+      "official_url": "https://www.mimit.gov.it/it/incentivi/elettronica",
+      "note": "One-stage FT1/FT2/FT3 full proposal by 16 Sep 2026; Italian national MIMIT application by 17 Sep 2026 17:00 after EU admissibility. Strong fit for electronics, smart systems, IoT and automation."
+    },
+    {
+      "id": "irccs-ricerca-trasferisci",
+      "kind": "material_update",
+      "title": "IRCCS – Ricerca & Trasferisci",
+      "role": "PARTNER",
+      "priority": "C",
+      "old_deadline": "2026-10-21",
+      "deadline": "2026-10-28",
+      "official_url": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/ricerca-innovazione/ricerca-sperimentazione-ambito-sanitario/irccs-ricerca-trasferisci-RLF12025045924",
+      "note": "28 Oct 2026 15:00 now consistently shown by Bandi e Servizi, Open Innovation and PR FESR Lombardia pages."
+    }
+  ],
+  "no_material_change": [
+    "Scoperta imprenditoriale II (2026)",
+    "Investimenti sostenibili 4.0 (2026)",
+    "Voucher Cloud & Cybersecurity",
+    "Sviluppo competenze specialistiche delle PMI",
+    "Collabora & Innova – Edizione 2",
+    "Rafforza&Innova",
+    "LIFE 2026 CET – INDUSTRY",
+    "EIC Accelerator / STEP Scale Up 2026"
+  ]
+}
