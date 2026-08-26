@@ -12,28 +12,8 @@ import ExecutiveStatus from './ExecutiveStatus.tsx'
 import PublicSurvey from './PublicSurvey.tsx'
 import OpportunityEngine from './OpportunityEngine.tsx'
 import BusinessCaseLab from './BusinessCaseLab.tsx'
-
+import CloudSync from './CloudSync.tsx'
 const path=window.location.pathname
-const content=path.startsWith('/survey/')
-  ? <PublicSurvey/>
-  : path.startsWith('/survey-links')
-    ? <SurveyLinks/>
-    : path.startsWith('/survey-inbox')
-      ? <SurveyInbox/>
-      : path.startsWith('/documents')
-        ? <Documents/>
-        : path.startsWith('/surveys')
-          ? <SurveyCenter/>
-          : path.startsWith('/data-vault')
-            ? <DataVault/>
-            : path.startsWith('/executive-status')
-              ? <ExecutiveStatus/>
-              : path.startsWith('/opportunity-engine')
-                ? <OpportunityEngine/>
-                : path.startsWith('/business-case')
-                  ? <BusinessCaseLab/>
-                  : <><App/><a className="vault-fab" href="/data-vault">Data Vault</a><a className="survey-fab" href="/surveys">Questionari & Assessment</a><a className="docs-fab" href="/documents">Documenti & Knowledge</a><a className="status-fab" href="/executive-status">Executive Status</a></>
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>{content}</StrictMode>,
-)
+const page=path.startsWith('/survey/')?<PublicSurvey/>:path.startsWith('/survey-links')?<SurveyLinks/>:path.startsWith('/survey-inbox')?<SurveyInbox/>:path.startsWith('/documents')?<Documents/>:path.startsWith('/surveys')?<SurveyCenter/>:path.startsWith('/data-vault')?<DataVault/>:path.startsWith('/executive-status')?<ExecutiveStatus/>:path.startsWith('/opportunity-engine')?<OpportunityEngine/>:path.startsWith('/business-case')?<BusinessCaseLab/>:<><App/><a className="vault-fab" href="/data-vault">Data Vault</a><a className="survey-fab" href="/surveys">Questionari & Assessment</a><a className="docs-fab" href="/documents">Documenti & Knowledge</a><a className="status-fab" href="/executive-status">Executive Status</a></>
+const managerPage=!path.startsWith('/survey/')
+createRoot(document.getElementById('root')!).render(<StrictMode>{page}{managerPage&&<CloudSync/>}</StrictMode>)
