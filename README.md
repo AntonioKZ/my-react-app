@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# AI Transformation OS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Single-company guided operating system for mapping inefficiencies, processes, tasks and AI/automation opportunities.
 
-Currently, two official plugins are available:
+## Current release — v0.2
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Guided methodology: Discover → Assess → Map → Score → Business Case → PoC → Scale & Review
+- Company profile and functional map
+- Process inventory with lead time / touch time
+- Task inventory with annual workload and capacity value
+- Opportunity scoring engine
+- Use case portfolio and indicative ROI
+- Integrated F01 Organization Discovery questionnaire
+- Integrated F03 Task & Productivity questionnaire
+- Survey submission log
+- Company Intelligence Report: printable PDF + Markdown + structured JSON
+- Full localStorage backup export to JSON
+- JSON restore/import to move all data between browsers/devices
+- Data completeness and missing-owner checks
 
-## React Compiler
+## Data portability
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Use **Dati & Backup**:
 
-## Expanding the ESLint configuration
+1. Export JSON before changing browser/device.
+2. Save the generated `ai-transformation-os-backup-YYYY-MM-DD.json` file.
+3. Open AI Transformation OS in the new browser.
+4. Choose **Importa JSON** and select the saved file.
+5. The complete workspace is restored into localStorage.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The backup contains company, functions, processes, tasks, opportunities, use cases, questionnaire submissions and derived metadata.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Company Intelligence Report
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+At any time choose **Genera report azienda** to generate:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- printable/PDF human report;
+- `company-intelligence-report.md` for LLM/RAG use;
+- `company-snapshot.json` for structured future AI analysis.
+
+## Architecture
+
+Current MVP: React + Vite with browser localStorage persistence. The data model is intentionally vendor-neutral. Database/authentication can be added later without changing the core methodology.
+
+## Development
+
+```bash
+npm install
+npm run dev
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+CI runs on GitHub Actions for every push.
