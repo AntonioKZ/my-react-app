@@ -28,7 +28,7 @@ export default function GuidedJourney(){
  const save=(key:string,patch:Meta)=>setMeta(m=>{const n={...m,[key]:{...(m[key]||{}),...patch}};persist(n);return n})
 
  const j=useMemo(()=>{
-  const company=data.company||{},funcs=data.functions||[],ins=data.employeeInsights||[],tasks=data.tasks||[],opps=data.opportunities||[],cases=data.businessCases||[],benefits=data.benefits||[],docs=data.documents||[],governance=data.governance||[],milestones=data.milestones||[]
+  const company=data.company||{},funcs=data.functions||[],ins=data.employeeInsights||[],tasks=data.tasks||[],opps=data.opportunities||[],useCases=data.useCases||[],docs=data.documents||[],milestones=data.milestones||[],governance=read('aito-governance',[])
   const f03=inv.filter(i=>i.form_code==='F03'),doneInv=f03.filter(i=>i.submitted_at),pending=f03.filter(i=>!i.submitted_at)
   const rows=funcs.map((f:any)=>{const assigned=f03.filter(i=>norm(i.function_name)===norm(f.name)),done=assigned.filter(i=>i.submitted_at),fin=ins.filter((i:any)=>norm(i.functionName)===norm(f.name)),responses=Math.max(fin.length,done.length),expected=Math.max(0,+f.people||0),coverage=expected?clamp(responses/expected*100):0,roles=[...new Set(assigned.map(i=>i.recipient_role).filter(Boolean))],doneRoles=[...new Set(done.map(i=>i.recipient_role).filter(Boolean))],rolePct=roles.length?clamp(doneRoles.length/roles.length*100):(responses?50:0),q=fin.map((i:any)=>+i.qualityScore||0).filter((v:number)=>v>0),quality=q.length?clamp(q.reduce((a:number,b:number)=>a+b,0)/q.length):(responses?50:0),sample=responses>=3?100:responses===2?70:responses===1?35:0,confidence=clamp(coverage*.35+quality*.30+rolePct*.20+sample*.15);return{coverage,rolePct,quality,confidence}})
   const totalPeople=funcs.reduce((s:number,f:any)=>s+(+f.people||0),0)
@@ -48,10 +48,27 @@ export default function GuidedJourney(){
   const qualityChecked=ins.length>0&&quality>0
   const processEvidence=ins.length>=2&&tasks.some((t:any)=>t.sourceSurvey)
   const oppScored=opps.length>0&&opps.every((o:any)=>+o.impact>0&&+o.automation>0)
-  const businessReady=cases.length>0
-  const governanceReady=governance.length>0
-  const pocActive=milestones.some((m:any)=>String(m.phase||'').toUpperCase()==='POC'&&['IN CORSO','FATTO','COMPLETATO'].includes(String(m.status||'').toUpperCase()))
-  const benefitMeasured=benefits.length>0
+
+  const bcBaseline=useCases.length>0&&useCases.every((u:any)=>u.kpi&&Number.isFinite(+u.baseline)&&+u.baseline>0&&Number.isFinite(+u.target)&&+u.target>=0)
+  const bcCosts=useCases.length>0&&useCases.every((u:any)=>(+u.setup||0)+(+u.opex||0)>0)
+  const bcBenefit=useCases.length>0&&useCases.every((u:any)=>(+u.benefit||0)>0)
+  const bcEconomics=useCases.length>0&&useCases.every((u:any)=>{const inv=(+u.setup||0)+(+u.opex||0);return inv>0&&(+u.benefit||0)>0})
+
+  const ownerReady=useCases.length>0&&useCases.every((u:any)=>String(u.owner||'').trim().length>0)
+  const readinessData=useCases.length>0&&useCases.every((u:any)=>u.readiness?.data&&u.readiness?.quality&&u.readiness?.integration)
+  const readinessRisk=useCases.length>0&&useCases.every((u:any)=>u.readiness?.privacy&&u.readiness?.security&&u.readiness?.compliance&&u.readiness?.human&&u.readiness?.fallback)
+  const recordedDecision=governance.some((g:any)=>String(g.type||'').toUpperCase()==='DECISION'&&String(g.status||'').toUpperCase()==='CLOSED')
+
+  const pocPlan=useCases.some((u:any)=>u.poc?.sample&&u.poc?.start&&u.poc?.end)
+  const pocOwnership=useCases.some((u:any)=>String(u.owner||'').trim()&&u.poc?.start&&u.poc?.end)||milestones.some((m:any)=>String(m.phase||'').toUpperCase()==='POC'&&String(m.owner||'').trim())
+  const pocBaseline=useCases.some((u:any)=>u.kpi&&(+u.baseline||0)>0&&Number.isFinite(+u.target))
+  const pocMonitoring=useCases.some((u:any)=>(+u.poc?.actual||0)>0&&(+u.poc?.quality||0)>0&&(+u.poc?.adoption||0)>0)||milestones.some((m:any)=>String(m.phase||'').toUpperCase()==='POC'&&(+m.progress||0)>0)
+
+  const measures=useCases.map((u:any)=>u.measure).filter(Boolean)
+  const measureAfter=measures.length>0&&measures.some((m:any)=>(+m.afterTime||0)>0||(+m.afterQuality||0)>0||(+m.afterThroughput||0)>0)
+  const measureComparison=measures.length>0&&measures.some((m:any)=>((+m.beforeTime||0)>0&&(+m.afterTime||0)>0)||((+m.beforeQuality||0)>0&&(+m.afterQuality||0)>0)||((+m.beforeThroughput||0)>0&&(+m.afterThroughput||0)>0))
+  const realizedBenefit=measures.length>0&&measures.some((m:any)=>(+m.beforeTime||0)>(+m.afterTime||0)&&(+m.volume||0)>0&&(+m.hourCost||0)>0)
+  const executiveValidation=measures.length>0&&measures.some((m:any)=>m.date&&String(m.validatedBy||'').trim()&&String(m.notes||'').trim())
 
   const steps:Step[]=[
    {key:'prepare',phase:'1 · PREPARA',title:'Definisci azienda e funzioni',href:'/?tab=company',action:'Azienda',checks:['Definisci obiettivo e perimetro','Inserisci funzioni/reparti','Indica owner e organico','Carica organigramma/documenti disponibili'],evidence:[!!company.name&&!!company.goal,functionsDefined,orgComplete,docs.length>0]},
@@ -60,10 +77,10 @@ export default function GuidedJourney(){
    {key:'validate',phase:'4 · VALIDA',title:'Controlla qualità e confidence',href:'/survey-coverage',action:'Assessment Confidence',checks:['Controlla Quality Score','Verifica coverage','Verifica diversità ruoli','Chiudi gap prima dell’analisi'],evidence:[qualityChecked,coverage>0,role>0,gate==='PRONTO PER ANALISI']},
    {key:'understand',phase:'5 · COMPRENDI',title:'Analizza inefficienze',href:'/employee-insights',action:'Employee Insights',checks:['Analizza attività ad alto assorbimento','Raggruppa problemi ricorrenti','Confronta funzioni','Valida i pattern con le persone'],evidence:[processEvidence,ins.length>=2,rows.filter((r:any)=>r.coverage>0).length>=2,false]},
    {key:'prioritize',phase:'6 · PRIORITIZZA',title:'Trasforma evidenze in opportunità',href:'/opportunity-engine',action:'Opportunity Engine',checks:['Crea opportunità dalle evidenze','Stima impatto','Stima fattibilità','Ordina il portfolio'],evidence:[opps.length>0,oppScored,oppScored,opps.length>=3]},
-   {key:'business',phase:'7 · DIMOSTRA',title:'Costruisci il business case',href:'/business-case',action:'Business Case Lab',checks:['Definisci baseline','Stima costi','Stima saving/benefici','Calcola ROI e payback'],evidence:[businessReady,businessReady,businessReady,businessReady]},
-   {key:'decide',phase:'8 · DECIDI',title:'Applica readiness e governance',href:'/readiness',action:'AI Readiness Gate',checks:['Assegna owner','Verifica dati e sistemi','Valuta rischi/compliance','Registra decisione Go/No-Go'],evidence:[governanceReady,governanceReady,governanceReady,governanceReady]},
-   {key:'execute',phase:'9 · REALIZZA',title:'Esegui PoC e iniziative',href:'/control-center',action:'Program Control Center',checks:['Definisci piano PoC','Assegna responsabilità e milestone','Registra baseline KPI','Monitora avanzamento e blocchi'],evidence:[pocActive,pocActive,pocActive,pocActive]},
-   {key:'measure',phase:'10 · MISURA',title:'Misura benefici',href:'/benefits',action:'Benefits Tracker',checks:['Misura KPI after','Confronta con baseline','Registra benefici realizzati','Prepara aggiornamento Direzione'],evidence:[benefitMeasured,benefitMeasured,benefitMeasured,benefitMeasured]}
+   {key:'business',phase:'7 · DIMOSTRA',title:'Costruisci il business case',href:'/business-case',action:'Business Case Lab',checks:['Definisci baseline','Stima costi','Stima saving/benefici','Calcola ROI e payback'],evidence:[bcBaseline,bcCosts,bcBenefit,bcEconomics]},
+   {key:'decide',phase:'8 · DECIDI',title:'Applica readiness e governance',href:'/readiness',action:'AI Readiness Gate',checks:['Assegna owner','Verifica dati e sistemi','Valuta rischi/compliance','Registra decisione Go/No-Go'],evidence:[ownerReady,readinessData,readinessRisk,recordedDecision]},
+   {key:'execute',phase:'9 · REALIZZA',title:'Esegui PoC e iniziative',href:'/control-center',action:'Program Control Center',checks:['Definisci piano PoC','Assegna responsabilità e milestone','Registra baseline KPI','Monitora avanzamento e blocchi'],evidence:[pocPlan,pocOwnership,pocBaseline,pocMonitoring]},
+   {key:'measure',phase:'10 · MISURA',title:'Misura benefici',href:'/benefits',action:'Benefits Tracker',checks:['Misura KPI after','Confronta con baseline','Registra benefici realizzati','Prepara aggiornamento Direzione'],evidence:[measureAfter,measureComparison,realizedBenefit,executiveValidation]}
   ]
 
   const enriched=steps.map(s=>{const m=meta[s.key]||{},manual=s.checks.map((_,n)=>!!m.checks?.[n]),effective=s.checks.map((_,n)=>!!s.evidence[n]||manual[n]),done=effective.every(Boolean),autoCount=s.evidence.filter(Boolean).length,d=m.target?daysTo(m.target):null,status=done?'FATTO':!m.target?'PIANIFICARE':(d as number)<0?'IN RITARDO':(d as number)<=7?'ATTENZIONE':'ON TRACK',nextIndex=effective.findIndex(v=>!v),nextCheck=nextIndex>=0?s.checks[nextIndex]:undefined;return{...s,m,manual,effective,done,status,days:d,nextCheck,nextIndex,autoCount}})
