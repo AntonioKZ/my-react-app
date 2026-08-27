@@ -1,6 +1,8 @@
 import { neon } from '@neondatabase/serverless';
+import {requireManager} from '../lib/manager-auth.js';
 const sql=neon(process.env.DATABASE_URL);
 export default async function handler(req,res){
+ if(!requireManager(req,res))return;
  try{
   if(req.method==='GET'){
    const rows=await sql`SELECT payload,revision,updated_at FROM workspace_state WHERE workspace_key='default'`;
