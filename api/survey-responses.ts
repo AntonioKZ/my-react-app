@@ -1,5 +1,7 @@
 import { neon } from '@neondatabase/serverless'
+import {requireManager} from '../lib/manager-auth.js'
 export default async function handler(req:any,res:any){
+ if(!requireManager(req,res))return
  if(req.method!=='GET')return res.status(405).json({ok:false,error:'method_not_allowed'})
  const url=process.env.DATABASE_URL;if(!url)return res.status(503).json({ok:false,error:'backend_not_configured'})
  try{const sql=neon(url);const rows=await sql`select r.id,r.form_code,r.respondent_token,coalesce(r.respondent_name,s.recipient_name) respondent_name,coalesce(r.respondent_email,s.recipient_email) respondent_email,
