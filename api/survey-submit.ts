@@ -13,8 +13,8 @@ export default async function handler(req:any,res:any){
     if(!link.length||!link[0].active) return res.status(404).json({ok:false,error:'invalid_or_inactive_link'})
     if(link[0].form_code!==formCode) return res.status(400).json({ok:false,error:'form_mismatch'})
     if(link[0].expires_at&&new Date(link[0].expires_at)<new Date()) return res.status(410).json({ok:false,error:'expired_link'})
-    const name=respondentName||link[0].recipient_name||null
-    const email=respondentEmail||link[0].recipient_email||null
+    const name=link[0].recipient_name||respondentName||null
+    const email=link[0].recipient_email||respondentEmail||null
     let cleanPayload=payload
     if(formCode==='F03') cleanPayload={...payload,reportedFunctionName:payload.functionName||'',reportedRole:payload.role||'',functionName:link[0].function_name||payload.functionName||'',role:link[0].recipient_role||payload.role||''}
     await sql`insert into survey_responses (form_code, respondent_token, respondent_name, respondent_email, payload, submitted_at, source)
