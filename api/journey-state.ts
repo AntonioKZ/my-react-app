@@ -1,5 +1,7 @@
 import {neon} from '@neondatabase/serverless'
+import {requireManager} from '../lib/manager-auth.js'
 export default async function handler(req:any,res:any){
+ if(!requireManager(req,res))return
  const url=process.env.DATABASE_URL
  if(!url)return res.status(503).json({ok:false,error:'backend_not_configured'})
  const sql=neon(url)
