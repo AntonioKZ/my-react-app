@@ -24,14 +24,14 @@ import ReadinessGate from './ReadinessGate.tsx'
 import EmployeeInsights from './EmployeeInsights.tsx'
 import CloudSync from './CloudSync.tsx'
 import PlatformMenu from './PlatformMenu.tsx'
+import ManagerAuthGate from './ManagerAuthGate.tsx'
 
 const path=window.location.pathname
-const page=path.startsWith('/survey/')?<PublicSurvey/>:path.startsWith('/v1-readiness')?<V1Readiness/>:path.startsWith('/journey')?<GuidedJourney/>:path.startsWith('/survey-links')?<SurveyLinks/>:path.startsWith('/survey-campaign')?<SurveyCampaign/>:path.startsWith('/survey-inbox')?<SurveyInbox/>:path.startsWith('/survey-coverage')?<SurveyCoverage/>:path.startsWith('/employee-insights')?<EmployeeInsights/>:path.startsWith('/documents')?<Documents/>:path.startsWith('/surveys')?<SurveyCenter/>:path.startsWith('/data-vault')?<DataVault/>:path.startsWith('/executive-status')?<ExecutiveStatus/>:path.startsWith('/executive-cockpit')?<ExecutiveCockpit/>:path.startsWith('/benefits')?<BenefitsTracker/>:path.startsWith('/governance')?<Governance/>:path.startsWith('/control-center')?<ControlCenter/>:path.startsWith('/readiness')?<ReadinessGate/>:path.startsWith('/opportunity-engine')?<OpportunityEngine/>:path.startsWith('/business-case')?<BusinessCaseLab/>:<App/>
-const managerPage=!path.startsWith('/survey/')
+const publicSurvey=path.startsWith('/survey/')
+const page=publicSurvey?<PublicSurvey/>:path.startsWith('/v1-readiness')?<V1Readiness/>:path.startsWith('/journey')?<GuidedJourney/>:path.startsWith('/survey-links')?<SurveyLinks/>:path.startsWith('/survey-campaign')?<SurveyCampaign/>:path.startsWith('/survey-inbox')?<SurveyInbox/>:path.startsWith('/survey-coverage')?<SurveyCoverage/>:path.startsWith('/employee-insights')?<EmployeeInsights/>:path.startsWith('/documents')?<Documents/>:path.startsWith('/surveys')?<SurveyCenter/>:path.startsWith('/data-vault')?<DataVault/>:path.startsWith('/executive-status')?<ExecutiveStatus/>:path.startsWith('/executive-cockpit')?<ExecutiveCockpit/>:path.startsWith('/benefits')?<BenefitsTracker/>:path.startsWith('/governance')?<Governance/>:path.startsWith('/control-center')?<ControlCenter/>:path.startsWith('/readiness')?<ReadinessGate/>:path.startsWith('/opportunity-engine')?<OpportunityEngine/>:path.startsWith('/business-case')?<BusinessCaseLab/>:<App/>
 
 createRoot(document.getElementById('root')!).render(
  <StrictMode>
-  {page}
-  {managerPage&&<><CloudSync/><PlatformMenu/></>}
+  {publicSurvey?page:<ManagerAuthGate><>{page}<CloudSync/><PlatformMenu/></></ManagerAuthGate>}
  </StrictMode>
 )
