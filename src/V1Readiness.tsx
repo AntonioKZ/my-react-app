@@ -1,5 +1,6 @@
 import {useEffect,useMemo,useState} from 'react'
 import './v1-readiness.css'
+import {runSurveyV2Regression} from './surveyV2'
 const read=(k:string,f:any)=>{try{return JSON.parse(localStorage.getItem(k)||'null')??f}catch{return f}},norm=(s:any)=>String(s||'').trim().toLowerCase()
 type Status='OK'|'WARNING'|'BLOCKER'
 type Check={name:string;status:Status;detail:string;action:string;href:string}
@@ -10,7 +11,7 @@ export default function V1Readiness(){
  const run=async()=>{setApi({journey:null,surveys:null,responses:null,workspace:null});setAuth(null);const out:any={};try{const r=await fetch('/api/auth-status'),j=await r.json();setAuth({configured:!!j.configured,authenticated:!!j.authenticated})}catch{setAuth({configured:false,authenticated:false})}try{const r=await fetch('/api/survey-link'),j=await r.json();out.surveys=r.ok;if(r.ok)setInvites(j.items||[])}catch{out.surveys=false}for(const [k,u] of [['journey','/api/journey-state'],['responses','/api/survey-responses'],['workspace','/api/workspace-state']] as const){try{const r=await fetch(u);out[k]=r.ok}catch{out[k]=false}}setApi(out);setStamp(new Date().toLocaleString('it-IT'))};
  useEffect(()=>{run()},[]);
  const x=useMemo(()=>{
-  const funcs=(data.functions||[]).filter((f:any)=>f.name&&(+f.people||0)>0),draft=(data.functions||[]).filter((f:any)=>(+f.people||0)<=0),ins=data.employeeInsights||[],opps=data.opportunities||[],useCases=data.useCases||[];
+  const funcs=(data.functions||[]).filter((f:any)=>f.name&&(+f.people||0)>0),draft=(data.functions||[]).filter((f:any)=>(+f.people||0)<=0),ins=data.employeeInsights||[],opps=data.opportunities||[],useCases=data.useCases||[],v2=runSurveyV2Regression();
   const missingOwners=funcs.filter((f:any)=>!String(f.owner||'').trim()),f03=invites.filter(i=>i.form_code==='F03');
   const outside=f03.filter(i=>i.function_name&&!funcs.some((f:any)=>norm(f.name)===norm(i.function_name)));
   const dup=new Map<string,number>();f03.forEach(i=>{const k=[norm(i.recipient_email),norm(i.function_name),norm(i.recipient_role)].join('|');if(k.replaceAll('|',''))dup.set(k,(dup.get(k)||0)+1)});const duplicates=[...dup.values()].filter(n=>n>1).length;
@@ -18,6 +19,7 @@ export default function V1Readiness(){
   const benefitsReady=useCases.some((u:any)=>u.measure&&((+u.measure.afterTime||0)>0||(+u.measure.afterQuality||0)>0||(+u.measure.afterThroughput||0)>0));
   const checks:Check[]=[
    {name:'Build e frontend',status:'OK',detail:'Applicazione caricata dal bundle production.',action:'Nessuna azione richiesta.',href:'/?tab=dashboard'},
+   {name:'Motore Survey V2',status:v2.ok?'OK':'BLOCKER',detail:v2.ok?`Regression suite ${v2.scoringVersion}: ${v2.passed}/${v2.total} test superati.`:`Regression suite ${v2.scoringVersion}: ${v2.passed}/${v2.total} test superati · errori: ${v2.failures.join(', ')}.`,action:v2.ok?'Nessuna azione richiesta. Il motore V2 resta non attivo sui questionari reali.':'Correggi il motore di scoring prima di attivare i questionari V2.',href:'/v1-readiness'},
    {name:'Protezione accesso manager',status:auth===null?'WARNING':auth.configured?'OK':'BLOCKER',detail:auth?.configured?'Accesso manager protetto da sessione server-side.':'AITO_MANAGER_PASSWORD non è configurata: le API manageriali restano in modalità compatibilità.',action:auth?.configured?'Nessuna azione richiesta.':'Configura AITO_MANAGER_PASSWORD nelle Environment Variables del progetto Vercel e ridistribuisci.',href:'/?tab=data'},
    {name:'Workspace centrale',status:api.workspace===null?'WARNING':api.workspace?'OK':'BLOCKER',detail:api.workspace?'API workspace centrale raggiungibile.':'Il salvataggio/caricamento centrale non è raggiungibile.',action:'Verifica Central Workspace e riprova il test.',href:'/?tab=data'},
    {name:'Journey cloud API',status:api.journey===null?'WARNING':api.journey?'OK':'BLOCKER',detail:api.journey?'Storico Journey/Neon raggiungibile.':'Lo storico del Percorso Guidato non è raggiungibile.',action:'Apri il Journey e verifica la sincronizzazione cloud.',href:'/journey'},
