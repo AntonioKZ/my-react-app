@@ -7,6 +7,7 @@ const groups:Group[]=[
  {title:'Guida & Controllo',items:[
   {label:'Dashboard',href:'/?tab=dashboard',tab:'dashboard',legacyLabel:'Dashboard',desc:'Panoramica del programma'},
   {label:'Percorso guidato',href:'/journey',desc:'Fasi, checklist, tempi e storico'},
+  {label:'V1 Readiness',href:'/v1-readiness',desc:'Self-test, stabilità e gap residui'},
   {label:'Calendario operativo',href:'/?tab=calendar',tab:'calendar',legacyLabel:'Calendario'},
   {label:'Program Control Center',href:'/control-center',desc:'Prossima azione e controllo programma'}]},
  {title:'Azienda & Discovery',items:[
