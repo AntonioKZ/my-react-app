@@ -1,0 +1,43 @@
+{
+  "scanned_at": "2026-08-30T08:48:17+02:00",
+  "sources": [
+    "MIMIT Incentivi",
+    "Invitalia Incentivi e strumenti",
+    "Regione Lombardia Bandi e Servizi",
+    "Open Innovation Lombardia",
+    "EuroInfoSicilia / PR FESR Sicilia",
+    "EU Funding & Tenders Portal",
+    "CINEA LIFE",
+    "European Innovation Council"
+  ],
+  "material_updates": [
+    {
+      "id": "horizon-ai-energy-2026",
+      "status": "newly_discovered",
+      "title": "HORIZON-CL5-2026-11-D3-23 – Data sharing to support the training and development of AI foundation models in the energy sector",
+      "role": "PARTNER",
+      "priority": "A",
+      "deadline": "2026-12-01T17:00:00+01:00",
+      "topic_budget_eur": 30000000,
+      "expected_eu_contribution_per_project_eur": 10000000,
+      "action_type": "Innovation Action",
+      "funding_rate_business": "70%",
+      "note": "High fit with AI, energy, smart grids, IoT, digital twin and cybersecurity. Recommend joining a transnational consortium as industrial demonstrator/data/use-case partner."
+    }
+  ],
+  "confirmed_existing_updates": [
+    {
+      "id": "irccs-ricerca-trasferisci",
+      "deadline": "2026-10-28T15:00:00+02:00",
+      "note": "Deadline confirmed on Open Innovation Lombardia; EUR 32m budget and grant up to 80%, max EUR 3m per IRCCS."
+    },
+    {
+      "id": "life",
+      "deadline": "2026-09-16T17:00:00+02:00",
+      "note": "LIFE Clean Energy Transition topics relevant to MI close 16 September 2026."
+    }
+  ],
+  "no_other_material_changes": true,
+  "database_update": "Neon connector project was found but SQL execution failed because of a connector schema/argument mismatch; no database write was made in this run.",
+  "github_commit": "5243d455d0538fdf5fbed3c49361b89d381123cf"
+}
