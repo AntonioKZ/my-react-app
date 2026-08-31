@@ -1,0 +1,54 @@
+{
+  "scanned_at": "2026-08-31T08:46:49+02:00",
+  "sources": [
+    "MIMIT Incentivi",
+    "Invitalia Incentivi e strumenti",
+    "Regione Lombardia Bandi e Servizi",
+    "Open Innovation Lombardia",
+    "EuroInfoSicilia / PR FESR Sicilia",
+    "EU Funding & Tenders Portal",
+    "CINEA LIFE",
+    "European Innovation Council"
+  ],
+  "material_updates": [
+    {
+      "id": "investimenti-sostenibili-4-0-2026",
+      "status": "materially_updated",
+      "title": "Investimenti sostenibili 4.0 – Bando 2026",
+      "role": "INVESTIMENTO",
+      "priority": "A",
+      "territory": ["Molise", "Basilicata", "Calabria", "Campania", "Puglia", "Sicilia", "Sardegna"],
+      "beneficiaries": "Micro, piccole e medie imprese con almeno due bilanci/dichiarazioni, contabilità ordinaria e gli ulteriori requisiti previsti dalla misura.",
+      "application_compilation_from": "2026-09-10T12:00:00+02:00",
+      "application_submission_from": "2026-10-06T12:00:00+02:00",
+      "project_cost_min_eur": 750000,
+      "project_cost_max_eur": 5000000,
+      "project_cost_revenue_cap": "70% del fatturato dell'ultimo bilancio/dichiarazione",
+      "aid_intensity": "75% delle spese ammissibili: 35% contributo in conto impianti + 40% finanziamento agevolato a tasso zero",
+      "private_financing_requirement": "Almeno 25% delle spese ammissibili con risorse proprie o finanziamento esterno privo di sostegno pubblico",
+      "eligible_costs": [
+        "macchinari, impianti e attrezzature",
+        "opere murarie fino al 40% dei costi ammissibili",
+        "software e licenze collegati ai beni materiali",
+        "certificazioni ambientali",
+        "consulenza specialistica su tecnologie abilitanti entro il 5% dei beni rilevanti",
+        "diagnosi energetica entro il 3% per programmi di efficienza energetica, se non obbligatoria"
+      ],
+      "constraints": [
+        "Tecnologie Transizione 4.0 devono rappresentare una quota preponderante dei costi",
+        "Per efficienza energetica: risparmio almeno 5% rispetto all'anno precedente",
+        "Investimento da avviare dopo la presentazione della domanda",
+        "Conclusione entro 18 mesi dalla concessione",
+        "Regolarità dell'obbligo assicurativo contro calamità naturali/eventi catastrofali, se applicabile",
+        "Attività ammissibili riferite alla classificazione ATECO 2025",
+        "Non è più richiesto allegare preventivi in domanda; beni e costi sono descritti nel piano e verificati in erogazione"
+      ],
+      "official_url": "https://www.invitalia.it/incentivi-e-strumenti/investimenti-sostenibili-40-bando-2026",
+      "recommended_action": "Preparare da subito il piano di investimento MI, verificare requisito PMI/ATECO 2025 e copertura privata, completare la verifica assicurativa catastrofale e predisporre la compilazione dal 10 settembre 2026."
+    }
+  ],
+  "no_other_material_changes": true,
+  "database_update": "Neon project bandi-radar-mi is available, but SQL execution is blocked by a connector schema/argument mismatch; no database write was forced to avoid inconsistent or duplicate records.",
+  "github_update": "Scan history committed on branch bandi-radar-mvp.",
+  "vercel_update": "No production redeploy required because this run changed scan history only; application data update remains pending until the persistent data layer can be written safely."
+}
