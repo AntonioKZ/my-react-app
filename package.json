@@ -1,6 +1,0 @@
-{
-  "name":"bandi-radar-mi",
-  "private":true,
-  "version":"4.0.0",
-  "scripts":{"build":"mkdir -p dist && cp index.html dist/index.html"}
-}
