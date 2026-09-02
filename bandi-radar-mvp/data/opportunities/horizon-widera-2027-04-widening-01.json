@@ -1,0 +1,23 @@
+{
+  "id": "horizon-widera-2027-04-widening-01",
+  "title": "Excellence Hubs",
+  "source": "EU Funding & Tenders / European Research Executive Agency",
+  "decision": "PARTNER",
+  "priority": "B",
+  "fresh": true,
+  "territory": ["UE", "Widening countries"],
+  "opening_date": "2026-09-02",
+  "deadline": "2027-03-04T17:00:00+01:00",
+  "type": "Coordination and Support Action",
+  "budget_total": "EUR 100 million",
+  "expected_eu_contribution": "EUR 1.5-4.5 million per project",
+  "funding_rate": "70%",
+  "beneficiaries": "At least two R&I ecosystems from two different Widening countries. Each ecosystem includes academia, business, public authority and societal actors. Non-Widening legal entities may join if necessary to achieve expected impacts.",
+  "what_it_funds": ["joint R&I strategy","academia-business collaboration","R&I pilot projects","investment plans","knowledge transfer","skills development","secondments and staff exchanges"],
+  "eligible_cost_note": "General Horizon Europe CSA eligible-cost rules apply; the call funds 70% of eligible costs. The proposal must explain how the remaining 30% will be secured and shared.",
+  "constraints": ["coordinator in a Widening country","two Widening-country ecosystems minimum","quadruple-helix composition for each Widening ecosystem","Italian participation must be justified as necessary","pilots/demonstrators financed by other sources"],
+  "mi_fit": ["energy transition ecosystems","industrial digitalisation","automation and IoT","deep-tech deployment","industry-academia demonstration and exploitation"],
+  "recommendation": "Join an existing Widening-country consortium as industrial/technology partner rather than coordinate.",
+  "official_url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-widening-participation-and-spreading-excellence/excellence-hubs_en",
+  "verified_at": "2026-09-02T08:37:02+02:00"
+}
