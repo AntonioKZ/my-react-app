@@ -1,0 +1,25 @@
+{
+  "scan_at": "2026-09-02T08:37:02+02:00",
+  "sources": ["MIMIT Incentivi","Invitalia Incentivi e strumenti","Regione Lombardia Bandi e Servizi","Open Innovation Lombardia","EuroInfoSicilia/PR FESR Sicilia","EU Funding & Tenders Portal","CINEA LIFE","European Innovation Council"],
+  "relevant_changes": [
+    {
+      "id": "horizon-widera-2027-04-widening-01",
+      "title": "Excellence Hubs",
+      "status": "newly_opened",
+      "role": "PARTNER",
+      "priority": "B",
+      "territory": "EU; coordinators limited to Widening countries; non-Widening entities may join if necessary for expected impacts",
+      "opening": "2026-09-02",
+      "deadline": "2027-03-04T17:00:00+01:00",
+      "budget": "EUR 100 million indicative",
+      "expected_eu_contribution": "EUR 1.5-4.5 million per project",
+      "funding_rate": "70% eligible costs",
+      "beneficiaries": "Consortia involving at least two R&I ecosystems from two different Widening countries; each ecosystem must cover academia, business, public authority and societal actors. Non-Widening legal entities may participate when justified.",
+      "funds": "Joint R&I strategies, academia-business collaboration, R&I pilot projects, investment plans, knowledge transfer, skills, secondments and staff exchanges. Pilots/demonstrators themselves must be financed by sources other than the Excellence Hub EU contribution.",
+      "constraints": ["Coordinator must be established in a Widening country","At least two ecosystems from two different Widening countries","Each Widening ecosystem must include four actor categories","30% co-financing must be secured and explained","Italian participation must be justified as necessary for expected impacts"],
+      "official_url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-widening-participation-and-spreading-excellence/excellence-hubs_en",
+      "recommendation": "For Meridionale Impianti, pursue only as an industrial/technology partner in a consortium led by Widening-country ecosystems, preferably on energy, industrial digitalisation, automation, IoT or deep-tech deployment."
+    }
+  ],
+  "notes": "No other material changes detected versus the previous radar state in the eight monitored official sources. EIC Accelerator has a previously known batching date on 2026-09-02 at 17:00 Brussels time."
+}
